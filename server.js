@@ -14,6 +14,15 @@ if (process.env.JAWSDB_URL) {
   });
 }
 
+// connection.query("DELETE FROM users WHERE id=3", (err, resultSet) => {
+//   if (err) {
+//     console.log('delete failed');
+//     console.log('err: ', err);
+//   } else {
+//     console.log('delete attempted');
+//   }
+// });
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -47,11 +56,12 @@ app.get("/", (req, res) => {
         <!DOCTYPE html>
         <html>
         <head>
-          <title>MySQL Deploy Demo</title>
+          <title>Users Database</title>
         </head>
         <body>
-          <h1>MySQL Deploy Demo User List</h1>
-          <button onclick="insert()">Add</button>
+          <h1>Users Database</h1>
+          <input type="text" / >
+          <button onclick="insert()">+</button>
           <table>
             <thead>
               <tr>
