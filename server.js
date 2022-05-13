@@ -17,9 +17,9 @@ if (process.env.JAWSDB_URL) {
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.get("/insert", (req, res) => {
+app.get("/insert/:id", (req, res) => {
 
-  const address = 'ned@email.com';
+  const address = req.params.id;
 
   connection.query(
     'INSERT INTO users (email) VALUES (?)',
@@ -47,30 +47,37 @@ app.get("/", (req, res) => {
         <!DOCTYPE html>
         <html>
         <head>
-            <title>MySQL Deploy Demo</title>
+          <title>MySQL Deploy Demo</title>
         </head>
         <body>
-            <h1>MySQL Deploy Demo User List</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                ${resultSet
-                  .map((user) => {
-                    return `
-                        <tr>
-                            <td>${user.id}</td>
-                            <td>${user.email}</td>
-                        </tr>
-                    `;
-                  })
-                  .join("")}
-                <tbody>
-            </table>
+          <h1>MySQL Deploy Demo User List</h1>
+          <button onclick="insert()">Add</button>
+          <table>
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>email</th>
+              </tr>
+            </thead>
+            <tbody>
+            ${resultSet
+              .map((user) => {
+                return `
+                  <tr>
+                    <td>${user.id}</td>
+                    <td>${user.email}</td>
+                  </tr>
+                `;
+              })
+              .join("")}
+            <tbody>
+          </table>
+
+          <script>
+            function insert() {
+              console.log('button working :)');
+            }
+          </script>
         </body>
         </html>
         `;
