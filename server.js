@@ -6,12 +6,7 @@ let connection;
 if (process.env.JAWSDB_URL) {
   connection = mysql.createConnection(process.env.JAWSDB_URL);
 } else {
-  connection = mysql.createConnection({
-    host: "dt3bgg3gu6nqye5f.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-    user: "lnlmzf3s23emkicx",
-    password: "m9854fcind6gx8el",
-    database: "mj1wrfh4fy8udur3",
-  });
+  console.log('connection failed');
 }
 
 // To delete a user:
