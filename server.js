@@ -17,6 +17,27 @@ if (process.env.JAWSDB_URL) {
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.get("/insert", (req, res) => {
+
+  const address = 'ned@email.com';
+
+  connection.query(
+    'INSERT INTO users (email) VALUES (?)',
+    [address],
+    (err, result) => {
+      if (err) {
+        console.log('insertion failed');
+        console.log(err);
+        return;
+      }
+      console.log('insertion attempted');
+    }
+  );
+
+  res.write('Wait rly? :)))');
+  res.end();
+});
+
 app.get("/", (req, res) => {
   connection.query("SELECT * FROM users", (err, resultSet) => {
     if (err) {
@@ -53,9 +74,7 @@ app.get("/", (req, res) => {
         </body>
         </html>
         `;
-    // res.send(html);
-    res.write('Anyone home? D:');
-    res.end();
+    res.send(html);
   });
 });
 
