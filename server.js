@@ -7,10 +7,10 @@ if (process.env.JAWSDB_URL) {
   connection = mysql.createConnection(process.env.JAWSDB_URL);
 } else {
   connection = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "password",
-    database: "mysql_deploy_demo",
+    host: "dt3bgg3gu6nqye5f.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    user: "lnlmzf3s23emkicx",
+    password: "m9854fcind6gx8el",
+    database: "mj1wrfh4fy8udur3",
   });
 }
 
@@ -53,7 +53,9 @@ app.get("/", (req, res) => {
         </body>
         </html>
         `;
-    res.send(html);
+    // res.send(html);
+    res.write('Anyone home? D:');
+    res.end();
   });
 });
 
