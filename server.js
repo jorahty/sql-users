@@ -26,13 +26,13 @@ if (process.env.JAWSDB_URL) {
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.get("/insert/:id", (req, res) => {
+app.get("/insert/:user", (req, res) => {
 
-  const address = req.params.id;
+  let user = req.params.user;
 
   connection.query(
     'INSERT INTO users (email) VALUES (?)',
-    [address],
+    [`${user}@email.com`],
     (err, result) => {
       if (err) {
         console.log('insertion failed');
@@ -85,7 +85,26 @@ app.get("/", (req, res) => {
 
           <script>
             function insert() {
-              console.log('button working :)');
+              let input = document.querySelector('input');
+              let root = window.location.href;
+              let url = root + 'insert/' + input.value;
+
+              httpGetAsync(url, callback)
+              input.value = null;
+            }
+
+            function httpGetAsync(theUrl, callback) {
+              var xmlHttp = new XMLHttpRequest();
+              xmlHttp.onreadystatechange = function() { 
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                  callback(xmlHttp.responseText);
+              }
+              xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+              xmlHttp.send(null);
+            }
+
+            function callback() {
+              location.reload();
             }
           </script>
         </body>
