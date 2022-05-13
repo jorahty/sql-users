@@ -15,7 +15,7 @@ if (process.env.JAWSDB_URL) {
 }
 
 // To delete a user:
-// connection.query("DELETE FROM users WHERE id=3", (err, resultSet) => {
+// connection.query("DELETE FROM users WHERE id=28", (err, resultSet) => {
 //   if (err) {
 //     console.log('delete failed');
 //     console.log('err: ', err);
@@ -37,12 +37,12 @@ app.get("/", (req, res) => {
         <!DOCTYPE html>
         <html>
         <head>
-          <title>Users Database</title>
+          <title>Users</title>
         </head>
         <body>
-          <h1>Users Database</h1>
-          <input type="text" / >
-          <button onclick="insert()">+</button>
+          <h1>Users</h1>
+          <input placeholder="new user" type="text" / >
+          <button onclick="insert()">Add</button>
           <table>
             <thead>
               <tr>
@@ -67,6 +67,13 @@ app.get("/", (req, res) => {
           <script>
             function insert() {
               let input = document.querySelector('input');
+
+              if (input.value == null || input.value === '') return;
+
+              let confirmed = confirm(input.value + ' will be added to the database.');
+
+              if (confirmed == false) return;
+
               let root = window.location.href;
               let url = root + 'insert/' + input.value;
 
@@ -88,6 +95,63 @@ app.get("/", (req, res) => {
               location.reload();
             }
           </script>
+
+          <style>
+            html {
+              background: #282c34;
+            }
+
+            body {
+              font-family: -apple-system, BlinkMacSystemFont, Roboto, 'Open Sans', 'Helvetica Neue', sans-serif;
+              background: #20232a;
+              color: #bbb;
+              width: 360px;
+              margin: 80px auto;
+              padding: 50px;
+              border-radius: 20px;
+            }
+
+            h1 {
+              color: #6353dd;
+              margin: 0;
+              margin-bottom: 30px;
+            }
+
+            input, button {
+              border: none;
+              line-height: 1;
+              border-radius: 25px;
+            }
+
+            input {
+              font-family: -apple-system, BlinkMacSystemFont, Roboto, 'Open Sans', 'Helvetica Neue', sans-serif;
+              background: #ffffff0d;
+              color: #bbb;
+              padding: 10px 20px;
+            }
+
+            input:focus {
+              outline: none;
+            }
+
+            button {
+              background: #6353dd;
+              font-weight: 900;
+              cursor: pointer;
+              padding: 10px 15px;
+              margin-left: 10px;
+              color: #20232a;
+            }
+
+            table {
+              margin-top: 30px;
+              color: #888;
+            }
+
+            td {
+              padding: 3px 20px;
+            }
+          </style>
         </body>
         </html>
         `;
