@@ -1,8 +1,8 @@
-const mysql = require("mysql");
 const express = require("express");
+const mysql = require("mysql");
 
+// Create connection
 let connection;
-
 if (process.env.JAWSDB_URL) {
   connection = mysql.createConnection(process.env.JAWSDB_URL);
 } else {
@@ -14,6 +14,7 @@ if (process.env.JAWSDB_URL) {
   });
 }
 
+// To delete a user:
 // connection.query("DELETE FROM users WHERE id=3", (err, resultSet) => {
 //   if (err) {
 //     console.log('delete failed');
@@ -26,27 +27,7 @@ if (process.env.JAWSDB_URL) {
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.get("/insert/:user", (req, res) => {
-
-  let user = req.params.user;
-
-  connection.query(
-    'INSERT INTO users (email) VALUES (?)',
-    [`${user}@email.com`],
-    (err, result) => {
-      if (err) {
-        console.log('insertion failed');
-        console.log(err);
-        return;
-      }
-      console.log('insertion attempted');
-    }
-  );
-
-  res.write('Wait rly? :)))');
-  res.end();
-});
-
+// Home page
 app.get("/", (req, res) => {
   connection.query("SELECT * FROM users", (err, resultSet) => {
     if (err) {
@@ -89,7 +70,7 @@ app.get("/", (req, res) => {
               let root = window.location.href;
               let url = root + 'insert/' + input.value;
 
-              httpGetAsync(url, callback)
+              httpGetAsync(url, done)
               input.value = null;
             }
 
@@ -103,7 +84,7 @@ app.get("/", (req, res) => {
               xmlHttp.send(null);
             }
 
-            function callback() {
+            function done() {
               location.reload();
             }
           </script>
@@ -114,4 +95,25 @@ app.get("/", (req, res) => {
   });
 });
 
-app.listen(port, () => console.log(`app listening on port ${port}`));
+// Insert user
+app.get("/insert/:user", (req, res) => {
+  let user = req.params.user;
+
+  if (user == null || user === '') return;
+
+  connection.query(
+    'INSERT INTO users (email) VALUES (?)',
+    [`${user}@email.com`],
+    (err, result) => {
+      if (err) {
+        console.log('insertion failed');
+        console.log(err);
+        return;
+      }
+      console.log('insertion attempted');
+      res.send(`User "${user}" was inserted into the database! 👍`);
+    }
+  );
+});
+
+app.listen(port);
